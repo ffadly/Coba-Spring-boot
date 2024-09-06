@@ -1,25 +1,22 @@
-CREATE TABLE IF NOT EXISTS `Student` (
-    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name varchar(20),
-    email varchar(50),
-    date_of_birth timestamp
-    created_at timestamp
+CREATE TABLE IF NOT EXISTS Student (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20),
+    email VARCHAR(50),
+    date_of_birth TIMESTAMP,
+    created_at TIMESTAMP
+);
 
-) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+CREATE TABLE IF NOT EXISTS Class (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20),
+    class_code VARCHAR(50),
+    created_at TIMESTAMP
+);
 
-CREATE TABLE IF NOT EXISTS `Class` (
-    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name varchar(20),
-    class_code varchar(50),
-    created_at timestamp
-
-) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
-
-CREATE TABLE IF NOT EXISTS `Family` (
-    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name varchar(20),
-    relationship enum('ayah', 'ibu', 'adik', 'kakak'),
-    student_id REFERENCES Student(id)
-    created_at timestamp
-
-) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+CREATE TABLE IF NOT EXISTS Family (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20),
+    relationship VARCHAR(5) CHECK (relationship IN ('ayah', 'ibu', 'adik', 'kakak')),
+    student_id INTEGER REFERENCES Student(id),
+    created_at TIMESTAMP
+);
